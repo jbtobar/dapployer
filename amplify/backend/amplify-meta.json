@@ -14,7 +14,19 @@
 	"hosting": {
 		"S3AndCloudFront": {
 			"service": "S3AndCloudFront",
-			"providerPlugin": "awscloudformation"
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/dapployer-20181210170440-deployment/amplify-cfn-templates/hosting/template.json",
+				"logicalId": "hostingS3AndCloudFront"
+			},
+			"lastPushTimeStamp": "2018-12-10T22:17:10.749Z",
+			"output": {
+				"S3BucketSecureURL": "https://dapployer-20181210171442--hostingbucket.s3.amazonaws.com",
+				"WebsiteURL": "http://dapployer-20181210171442--hostingbucket.s3-website-us-east-1.amazonaws.com",
+				"Region": "us-east-1",
+				"HostingBucketName": "dapployer-20181210171442--hostingbucket"
+			},
+			"lastPushDirHash": "jgPnZFvdufgMCjEZhyI6wbBDe6Q="
 		}
 	}
 }
