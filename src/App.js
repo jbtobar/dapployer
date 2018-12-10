@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
-// import 'semantic-ui-css/semantic.css'
+import {Container, Label, Form, Input, Search, Sidebar, Segment, Button, Menu, Image, Icon, Header, Grid, Message } from 'semantic-ui-react'
+import ItemDashboard from './screens/itemDashboard'
+import 'semantic-ui-css/semantic.css'
 
 import Amplify from 'aws-amplify';
 import aws_exports from './aws-exports';
 import { withAuthenticator } from 'aws-amplify-react';
 Amplify.configure(aws_exports);
-
+// import 'semantic-ui-css/semantic.css'
 // import React, { Component } from 'react';
 // import logo from './logo.svg';
 // import './App.css';
 // import Amplify, { API } from 'aws-amplify';
 // import aws_exports from './aws-exports';
-import {Container, Label, Form, Input, Search, Sidebar, Segment, Button, Menu, Image, Icon, Header, Grid, Message } from 'semantic-ui-react'
-import ItemDashboard from './screens/itemDashboard'
+
 // import CreateItemModal from './screens/createItem'
 // import { withAuthenticator } from 'aws-amplify-react'
 
