@@ -8,7 +8,10 @@ const awsmobile =  {
     "aws_cognito_identity_pool_id": "us-east-1:a449bea6-633f-42c1-bf1e-b950acca6fd4",
     "aws_cognito_region": "us-east-1",
     "aws_user_pools_id": "us-east-1_DQSLfBKg1",
-    "aws_user_pools_web_client_id": "5j0vubgk3nh02ah8johm48uvqs"
+    "aws_user_pools_web_client_id": "5j0vubgk3nh02ah8johm48uvqs",
+
+    "aws_user_files_s3_bucket": "scarlettprimabucket",
+    "aws_user_files_s3_bucket_region": "us-east-1"
 };
 
 
