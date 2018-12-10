@@ -1,14 +1,20 @@
 {
-    "providers": {
-        "awscloudformation": {
-            "AuthRoleName": "dapployer-20181210170440-authRole",
-            "UnauthRoleArn": "arn:aws:iam::839003556781:role/dapployer-20181210170440-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::839003556781:role/dapployer-20181210170440-authRole",
-            "Region": "us-east-1",
-            "DeploymentBucketName": "dapployer-20181210170440-deployment",
-            "UnauthRoleName": "dapployer-20181210170440-unauthRole",
-            "StackName": "dapployer-20181210170440",
-            "StackId": "arn:aws:cloudformation:us-east-1:839003556781:stack/dapployer-20181210170440/98022910-fcc7-11e8-96f3-0e6c2daa9b2c"
-        }
-    }
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "dapployer-20181210170440-authRole",
+			"UnauthRoleArn": "arn:aws:iam::839003556781:role/dapployer-20181210170440-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::839003556781:role/dapployer-20181210170440-authRole",
+			"Region": "us-east-1",
+			"DeploymentBucketName": "dapployer-20181210170440-deployment",
+			"UnauthRoleName": "dapployer-20181210170440-unauthRole",
+			"StackName": "dapployer-20181210170440",
+			"StackId": "arn:aws:cloudformation:us-east-1:839003556781:stack/dapployer-20181210170440/98022910-fcc7-11e8-96f3-0e6c2daa9b2c"
+		}
+	},
+	"hosting": {
+		"S3AndCloudFront": {
+			"service": "S3AndCloudFront",
+			"providerPlugin": "awscloudformation"
+		}
+	}
 }
