@@ -19,7 +19,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/dapployer-20181210170440-deployment/amplify-cfn-templates/hosting/template.json",
 				"logicalId": "hostingS3AndCloudFront"
 			},
-			"lastPushTimeStamp": "2018-12-10T22:17:10.749Z",
+			"lastPushTimeStamp": "2018-12-10T22:22:14.191Z",
 			"output": {
 				"S3BucketSecureURL": "https://dapployer-20181210171442--hostingbucket.s3.amazonaws.com",
 				"WebsiteURL": "http://dapployer-20181210171442--hostingbucket.s3-website-us-east-1.amazonaws.com",
@@ -27,6 +27,27 @@
 				"HostingBucketName": "dapployer-20181210171442--hostingbucket"
 			},
 			"lastPushDirHash": "jgPnZFvdufgMCjEZhyI6wbBDe6Q="
+		}
+	},
+	"auth": {
+		"cognito3eadf9ce": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/dapployer-20181210170440-deployment/amplify-cfn-templates/auth/cognito3eadf9ce-cloudformation-template.yml",
+				"logicalId": "authcognito3eadf9ce"
+			},
+			"lastPushTimeStamp": "2018-12-10T22:22:14.193Z",
+			"output": {
+				"AppClientSecret": "1gdqemra9ik3r99jqukev9a7ni9u6626qmva6nppj1od84324qum",
+				"UserPoolId": "us-east-1_DQSLfBKg1",
+				"AppClientIDWeb": "5j0vubgk3nh02ah8johm48uvqs",
+				"AppClientID": "7hp6mib8t5fcb7ajop42475g56",
+				"IdentityPoolId": "us-east-1:a449bea6-633f-42c1-bf1e-b950acca6fd4",
+				"IdentityPoolName": "cognito3eadf9ce_identitypool_3eadf9ce",
+				"UserPoolName": "cognito3eadf9ce_userpool_3eadf9ce"
+			},
+			"lastPushDirHash": "Mqm5db4fV3YBJKn1dB0wi2ps75k="
 		}
 	}
 }
