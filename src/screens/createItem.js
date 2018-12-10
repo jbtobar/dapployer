@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Modal, Button, Container } from 'semantic-ui-react'
-import Amplify, { API } from 'aws-amplify';
+import Amplify, { Storage } from 'aws-amplify';
+// import { Storage } from 'aws-amplify';
 // const uuidv1 = require('uuid/v1');
 // let apiName = 'ServerlessReactExampleCRUD';
 // let path = '/ServerlessReactExample';
@@ -23,6 +24,9 @@ class CreateItemModal extends Component {
 
   handleSubmit(event) {
     console.log(this);
+    Storage.get('welcome.png', { level: 'public' })
+      .then(result => console.log('GOT IT', result))
+      .catch(err => console.log('NO GO!', err))
     // let apiName = 'ServerlessReactExampleCRUD';
     // let path = '/ServerlessReactExample';
     // let newItem = {
