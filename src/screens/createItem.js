@@ -42,7 +42,9 @@ class CreateItemModal extends Component {
       textColor:'#ffffff',
       backgroundColor:'#0000ff',
       finalSubmitStatus:'',
-      done:false
+      done:false,
+      cardNameSubmitted:false,
+      cardLogoSubmitted:false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -62,11 +64,26 @@ class CreateItemModal extends Component {
       backgroundColor:backgroundColor
     }
     console.log(maker)
+
+
+
     var fileName = this.state.cardName+'/meta.json'
     Storage.put(fileName, JSON.stringify(maker))
       .then (result => {
         console.log(result)
-        this.setState({ finalSubmitStatus: 'Uploaded Successfully!',readyToUpload:false,done:true });
+
+        Storage.put('card_names/'+this.state.cardName,'')
+          .then(res => {
+            console.log(res)
+            console.log(result)
+            // this.setState({ cardSubmitSuccess: 'Uploaded Successfully!',done:true });
+            this.setState({ finalSubmitStatus: 'Uploaded Successfully!',readyToUpload:false,done:true });
+            // window.reso = res
+          })
+          .catch(err => {
+            console.log(err)
+            this.setState({ cardSubmitSuccess: 'Error:',err });
+          })
       })
       .catch(err => {
         console.log(err)
@@ -88,6 +105,7 @@ class CreateItemModal extends Component {
       .then (result => {
         console.log(result)
         this.setState({ cardNameStatus: 'Uploaded Successfully!' });
+        this.setState({ cardNameSubmitted: true });
       })
       .catch(err => {
         console.log(err)
@@ -102,15 +120,15 @@ class CreateItemModal extends Component {
           contentType: 'image/png'
       })
       .then (result => {
-        console.log(result)
-        this.setState({ cardSubmitSuccess: 'Uploaded Successfully!',done:true });
+          console.log(result)
+          this.setState({ cardLogoStatus: 'Uploaded Successfully!' });
+          this.setState({ cardLogoSubmitted: true });
       })
       .catch(err => {
         console.log(err)
         this.setState({ cardSubmitSuccess: 'Error:',err });
       });
     }
-
   }
 
   handleChange(event, {name, value}) {
@@ -173,7 +191,10 @@ class CreateItemModal extends Component {
 
   handleOpen = () => this.setState({ modalOpen: true, itemName: '', itemPrice: '', itemDescription: '' })
 
-  handleClose = () => this.setState({ modalOpen: false })
+  handleClose = () => {
+    this.setState({ modalOpen: false })
+    this.setState(this.getInitialState())
+  }
 
 
   render () {
