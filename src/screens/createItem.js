@@ -39,8 +39,10 @@ class CreateItemModal extends Component {
       readyToUpload:false,
       cardLogoStatus:'',
       cardImageStatus:'',
-      textColor:null,
-      backgroundColor:null
+      textColor:'#ffffff',
+      backgroundColor:'#0000ff',
+      finalSubmitStatus:'',
+      done:false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -52,12 +54,24 @@ class CreateItemModal extends Component {
   }
   finalSubmit(event) {
     const {cardName,cardDescription,cardTitle,textColor,backgroundColor} = this.state
-    // maker = {
-    //
-    // }
-    console.log(this.state)
-    console.log(textColor)
-    console.log(backgroundColor)
+    const maker = {
+      cardName:cardName,
+      cardDescription:cardDescription,
+      cardTitle:cardTitle,
+      textColor:textColor,
+      backgroundColor:backgroundColor
+    }
+    console.log(maker)
+    var fileName = this.state.cardName+'/meta.json'
+    Storage.put(fileName, JSON.stringify(maker))
+      .then (result => {
+        console.log(result)
+        this.setState({ finalSubmitStatus: 'Uploaded Successfully!',readyToUpload:false,done:true });
+      })
+      .catch(err => {
+        console.log(err)
+        this.setState({ finalSubmitStatus: 'Error:',err });
+      });
   }
 
   onChange(e,{name, value}) {
@@ -89,11 +103,11 @@ class CreateItemModal extends Component {
       })
       .then (result => {
         console.log(result)
-        this.setState({ cardLogoStatus: 'Uploaded Successfully!' });
+        this.setState({ cardSubmitSuccess: 'Uploaded Successfully!',done:true });
       })
       .catch(err => {
         console.log(err)
-        this.setState({ cardLogoStatus: 'Error:',err });
+        this.setState({ cardSubmitSuccess: 'Error:',err });
       });
     }
 
@@ -201,6 +215,10 @@ class CreateItemModal extends Component {
         <Modal trigger={<Button onClick={this.handleOpen}>+ Add Card</Button>} closeIcon={true} open={this.state.modalOpen} onClose={this.handleClose}>
           <Modal.Header>Add a Card</Modal.Header>
           <Modal.Content>
+          {this.state.done ?
+            <Card.Header>
+              {this.state.finalSubmitStatus}
+            </Card.Header> :
 
             <Form onSubmit={this.handleSubmit} >
             <Card.Header>
@@ -212,9 +230,12 @@ class CreateItemModal extends Component {
               </Form.Group>
               <Form.TextArea name='cardDescription' label='Card Description' placeholder='Add a Description of the Card...' onChange={this.handleChange}  value={this.state.cardDescription} />
               <Form.Button type='submit'>Next</Form.Button>
+              <Card.Header>
+                {this.state.finalSubmitStatus}
+              </Card.Header>
             </Form>
+            }
             {this.state.readyToUpload ? imageUploader : null}
-
           </Modal.Content>
         </Modal>
       );
