@@ -129,23 +129,18 @@ class CreateItemModal extends Component {
     if (this.state.cardName.length < 8) {
       this.setState({ error: 'Name should be longer than 7' });
     } else {
-
-      Storage.get('cardDirectory.json')
-        .then(result => {
-          console.log(result)
-          var cardDir = JSON.parse(result)
-          if (cardDir[this.state.cardName]) {
-            this.setState({ error: 'Name unavailable' });
-          } else {
-            cardDir[this.state.cardName] = true
-            Storage.put('cardDirectory.json', JSON.stringify(cardDir))
-              .then()
-              .catch()
-          }
-        })
-        .catch(err => console.log(err))
-
-      this.setState({ error: '', readyToUpload:true });
+      Storage.list('card_names/'+this.state.cardName)
+      .then(res => {
+        if (res.length > 0) {
+          this.setState({ error: 'name already taken',});
+        } else {
+          this.setState({ error: '', readyToUpload:true });
+        }
+      })
+      .catch(err => {
+        console.log(err)
+        this.setState({ error: err});
+      })
     }
   }
 

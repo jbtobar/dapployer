@@ -7,9 +7,24 @@ class ItemDashboard extends Component {
 
 
 lister = () => {
-  Storage.list('')
-  .then(result => console.log(result))
-  .catch(err => console.log(err));
+  Storage.list('card_names/meso')
+  .then(res => {
+    console.log(res)
+    window.reso = res
+  })
+  .catch(err => console.log(err))
+  // Storage.put('card_names/yeso','')
+  //   .then(res => {
+  //     console.log(res)
+  //     window.reso = res
+  //   })
+  //   .catch(err => console.log(err))
+  // Storage.get('cardDirectory.json')
+  //   .then(res => {
+  //     console.log(res)
+  //     window.reso = res
+  //   })
+  //   .catch(err => console.log(err))
 }
 render() {
     return (
