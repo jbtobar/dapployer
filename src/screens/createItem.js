@@ -46,6 +46,10 @@ class CreateItemModal extends Component {
       cardNameSubmitted:false,
       cardLogoSubmitted:false
     }
+
+    this.baseState = this.state
+
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -193,7 +197,7 @@ class CreateItemModal extends Component {
 
   handleClose = () => {
     this.setState({ modalOpen: false })
-    this.setState(this.getInitialState())
+    this.setState(this.baseState)
   }
 
 
