@@ -117,29 +117,35 @@ class CreateItemModal extends Component {
     this.setState({ [name]: value });
   }
 
-  handleSubmitName(event) {
-    if (this.state.cardName.length > 7) {
-      this.setState({ nameChosen: true, error: '' });
-    } else {
-      this.setState({ error: 'Name should be longer than 7' });
-    }
-
-  }
+  // handleSubmitName(event) {
+  //   if (this.state.cardName.length > 7) {
+  //     this.setState({ nameChosen: true, error: '' });
+  //   } else {
+  //     this.setState({ error: 'Name should be longer than 7' });
+  //   }
+  //
+  // }
   handleSubmit(event) {
     if (this.state.cardName.length < 8) {
       this.setState({ error: 'Name should be longer than 7' });
     } else {
+
+      Storage.get('cardDirectory.json')
+        .then(result => {
+          console.log(result)
+          var cardDir = JSON.parse(result)
+          if (cardDir[this.state.cardName]) {
+            this.setState({ error: 'Name unavailable' });
+          } else {
+            cardDir[this.state.cardName] = true
+            Storage.put('cardDirectory.json', JSON.stringify(cardDir))
+              .then()
+              .catch()
+          }
+        })
+        .catch(err => console.log(err))
+
       this.setState({ error: '', readyToUpload:true });
-      // var maker = {
-      //   "name": this.state.cardName,
-      //   "date": Date.now(),
-      //   "cardBackgroundColor":"rgb(51,55,56)",
-      //   "cardTitleColor":"rgb(38,213,311)",
-      //   "cardTitle":this.state.cardTitle,
-      //   "cardDescription":this.state.cardDescription
-      // }
-      // this.setState({ maker: maker });
-      // STORAGE.PUT LOGIC
     }
   }
 
