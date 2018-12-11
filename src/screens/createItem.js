@@ -36,7 +36,9 @@ class CreateItemModal extends Component {
       cardName:'',
       cardTitle:'',
       cardDescription:'',
-      readyToUpload:false
+      readyToUpload:false,
+      cardLogoStatus:'',
+      cardImageStatus:''
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -48,15 +50,42 @@ class CreateItemModal extends Component {
   }
 
   onChange(e,{name, value}) {
-    window.steve = e
+    // window.steve = e
     console.log(name)
     console.log(value)
-      // const file = e.target.files[0];
-      // Storage.put('example.png', file, {
-      //     contentType: 'image/png'
-      // })
-      // .then (result => console.log(result))
-      // .catch(err => console.log(err));
+    if (name === 'cardImage') {
+      var fileName = this.state.cardName+'/image.png'
+      var file = file = e.target.files[0];
+      console.log('about to store cardname')
+      Storage.put(fileName, file, {
+          contentType: 'image/png'
+      })
+      .then (result => {
+        console.log(result)
+        this.setState({ cardNameStatus: 'Uploaded Successfully!' });
+      })
+      .catch(err => {
+        console.log(err)
+        this.setState({ cardNameStatus: 'Error:',err });
+      });
+    }
+    if (name === 'cardLogo') {
+      var fileName = this.state.cardName+'/logo.png'
+      var file = file = e.target.files[0];
+      console.log('about to store cardlogo')
+      Storage.put(fileName, file, {
+          contentType: 'image/png'
+      })
+      .then (result => {
+        console.log(result)
+        this.setState({ cardLogoStatus: 'Uploaded Successfully!' });
+      })
+      .catch(err => {
+        console.log(err)
+        this.setState({ cardLogoStatus: 'Error:',err });
+      });
+    }
+
   }
 
   handleChange(event, {name, value}) {
@@ -124,11 +153,17 @@ class CreateItemModal extends Component {
   render () {
 
     const imageUploader = <Form>
+                                <Card.Header>
+                                {this.state.cardNameStatus}
+                                </Card.Header>
                               <Form.Input
                                   name='cardLogo' label='Card Logo' placeholder='Upload Card Logo...'
                                   type="file" accept='image/png'
                                   onChange={this.onChange}
                               />
+                              <Card.Header>
+                              {this.state.cardLogoStatus}
+                              </Card.Header>
 
                               <Form.Input
                                   name='cardImage' label='Card Background Image' placeholder='Upload Card Image...'
