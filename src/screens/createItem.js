@@ -52,6 +52,9 @@ class CreateItemModal extends Component {
   }
   finalSubmit(event) {
     const {cardName,cardDescription,cardTitle,textColor,backgroundColor} = this.state
+    // maker = {
+    //
+    // }
     console.log(this.state)
     console.log(textColor)
     console.log(backgroundColor)
