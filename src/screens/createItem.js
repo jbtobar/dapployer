@@ -24,7 +24,7 @@ import Amplify, { Storage } from 'aws-amplify';
 //           />
 //       )
 //   }
-// }
+// }<input type="file" id="ctrl" webkitdirectory="true" directory="true" multiple="true"/>
 
 class CreateItemModal extends Component {
 
@@ -39,12 +39,14 @@ class CreateItemModal extends Component {
       readyToUpload:false,
       cardLogoStatus:'',
       cardImageStatus:'',
+      htmlFileStatus:'',
       textColor:'#ffffff',
       backgroundColor:'#0000ff',
       finalSubmitStatus:'',
       done:false,
       cardImageSubmitted:false,
-      cardLogoSubmitted:false
+      cardLogoSubmitted:false,
+      htmlFileSubmitted:false
     }
 
     this.baseState = this.state
@@ -54,6 +56,7 @@ class CreateItemModal extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.onChange = this.onChange.bind(this);
+    this.onChangeFiles = this.onChangeFiles.bind(this);
     this.finalSubmit = this.finalSubmit.bind(this);
     // this.handleSubmitName = this.handleSubmitName.bind(this);
 
@@ -94,6 +97,26 @@ class CreateItemModal extends Component {
         this.setState({ finalSubmitStatus: 'Error:',err });
       });
   }
+  onChangeFiles(e) {
+    var cardoName = this.state.cardName
+    var files = e.target.files;
+    // window.files = files
+    for (var i = 0; i < files.length+1; i++) {
+      try {
+        var fileName = cardoName+'/assets/'+files[i].name
+        console.log(fileName)
+      } catch(err) {
+        console.log('errs but still works')
+        console.log(err)
+      }
+
+
+      // Storage.put(fileName, files[i])
+      //   .then(res => console.log(res))
+      //   .catch(err => console.log(err))
+    }
+
+  }
 
   onChange(e,{name, value}) {
     // window.steve = e
@@ -101,7 +124,7 @@ class CreateItemModal extends Component {
     console.log(value)
     if (name === 'cardImage') {
       var fileName = this.state.cardName+'/image.png'
-      var file = file = e.target.files[0];
+      var file = e.target.files[0];
       console.log('about to store cardname')
       Storage.put(fileName, file, {
           contentType: 'image/png'
@@ -118,11 +141,27 @@ class CreateItemModal extends Component {
     }
     if (name === 'cardLogo') {
       var fileName = this.state.cardName+'/logo.png'
-      var file = file = e.target.files[0];
+      var file = e.target.files[0];
       console.log('about to store cardlogo')
       Storage.put(fileName, file, {
           contentType: 'image/png'
       })
+      .then (result => {
+          console.log(result)
+          this.setState({ htmlFileStatus: 'Uploaded Successfully!' });
+          this.setState({ htmlFileSubmitted: true });
+      })
+      .catch(err => {
+        console.log(err)
+        // this.setState({ cardSubmitSuccess: 'Error:',err });
+      });
+    }
+
+    if (name === "cardHtml") {
+      var fileName = this.state.cardName+'/index.html'
+      var file = file = e.target.files[0];
+      console.log('about to store html')
+      Storage.put(fileName, file)
       .then (result => {
           console.log(result)
           this.setState({ cardLogoStatus: 'Uploaded Successfully!' });
@@ -233,6 +272,19 @@ class CreateItemModal extends Component {
                                   type="file" accept='image/png'
                                   onChange={this.onChange}
                               />
+
+                              <Card.Header>
+                              {this.state.htmlFileStatus}
+                              </Card.Header>
+
+                              <input
+                                  name='cardHtml' label='Card HTML File' placeholder='Upload Card HTML...'
+                                  type="file"
+                                  webkitdirectory="true" directory="true"
+                                  multiple
+                                  onChange={this.onChangeFiles}
+                              />
+
 
                               <Form.Input
                                   name='textColor' label='Card Text Color' placeholder='Choose text color...'
