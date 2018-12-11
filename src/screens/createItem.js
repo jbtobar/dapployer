@@ -43,7 +43,7 @@ class CreateItemModal extends Component {
       backgroundColor:'#0000ff',
       finalSubmitStatus:'',
       done:false,
-      cardNameSubmitted:false,
+      cardImageSubmitted:false,
       cardLogoSubmitted:false
     }
 
@@ -108,8 +108,8 @@ class CreateItemModal extends Component {
       })
       .then (result => {
         console.log(result)
-        this.setState({ cardNameStatus: 'Uploaded Successfully!' });
-        this.setState({ cardNameSubmitted: true });
+        this.setState({ cardImageStatus: 'Uploaded Successfully!' });
+        this.setState({ cardImageSubmitted: true });
       })
       .catch(err => {
         console.log(err)
@@ -148,20 +148,32 @@ class CreateItemModal extends Component {
   //
   // }
   handleSubmit(event) {
-    if (this.state.cardName.length < 8) {
+    var cardNamer = this.state.cardName
+    if (cardNamer.length < 8) {
       this.setState({ error: 'Name should be longer than 7' });
     } else {
-      Storage.list('card_names/'+this.state.cardName)
+      console.log('checking card_names')
+      console.log(cardNamer)
+      Storage.list('card_names/'+cardNamer)
       .then(res => {
         if (res.length > 0) {
-          this.setState({ error: 'name already taken',});
+          console.log(res)
+          var nameTaken = false
+          res.forEach(function(d) {
+            if (d.key === 'card_names/'+cardNamer) {
+              var nameTaken = true
+            }
+          })
+          if (nameTaken) { this.setState({ error: 'name already taken'}) }
+          else {this.setState({ error: '', readyToUpload:true })}
         } else {
+          console.log(res)
           this.setState({ error: '', readyToUpload:true });
         }
       })
       .catch(err => {
         console.log(err)
-        this.setState({ error: err});
+        // this.setState({ error: err});
       })
     }
   }
@@ -205,7 +217,7 @@ class CreateItemModal extends Component {
 
     const imageUploader = <Form onSubmit={this.finalSubmit}>
                                 <Card.Header>
-                                {this.state.cardNameStatus}
+                                {this.state.cardImageStatus}
                                 </Card.Header>
                               <Form.Input
                                   name='cardLogo' label='Card Logo' placeholder='Upload Card Logo...'
