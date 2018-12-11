@@ -38,15 +38,23 @@ class CreateItemModal extends Component {
       cardDescription:'',
       readyToUpload:false,
       cardLogoStatus:'',
-      cardImageStatus:''
+      cardImageStatus:'',
+      textColor:null,
+      backgroundColor:null
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.onChange = this.onChange.bind(this);
-    // this.handleChangeName = this.handleChangeName.bind(this);
+    this.finalSubmit = this.finalSubmit.bind(this);
     // this.handleSubmitName = this.handleSubmitName.bind(this);
 
+  }
+  finalSubmit(event) {
+    const {cardName,cardDescription,cardTitle,textColor,backgroundColor} = this.state
+    console.log(this.state)
+    console.log(textColor)
+    console.log(backgroundColor)
   }
 
   onChange(e,{name, value}) {
@@ -152,7 +160,7 @@ class CreateItemModal extends Component {
 
   render () {
 
-    const imageUploader = <Form>
+    const imageUploader = <Form onSubmit={this.finalSubmit}>
                                 <Card.Header>
                                 {this.state.cardNameStatus}
                                 </Card.Header>
@@ -170,6 +178,20 @@ class CreateItemModal extends Component {
                                   type="file" accept='image/png'
                                   onChange={this.onChange}
                               />
+
+                              <Form.Input
+                                  name='textColor' label='Card Text Color' placeholder='Choose text color...'
+                                  type="color"
+                                  onChange={this.handleChange}
+                              />
+
+                              <Form.Input
+                                  name='backgroundColor' label='Card Background Color' placeholder='Choose background color...'
+                                  type="color"
+                                  onChange={this.handleChange}
+                              />
+
+                              <Form.Button type='submit'>Submit</Form.Button>
                           </Form>
 
     return (
