@@ -33,23 +33,30 @@ class CreateItemModal extends Component {
   constructor(props) {
     super(props)
     this.state = {
-
+      cardName:'',
+      cardTitle:'',
+      cardDescription:'',
+      readyToUpload:false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
+    this.onChange = this.onChange.bind(this);
     // this.handleChangeName = this.handleChangeName.bind(this);
     // this.handleSubmitName = this.handleSubmitName.bind(this);
 
   }
 
-  onChange(e) {
-      const file = e.target.files[0];
-      Storage.put('example.png', file, {
-          contentType: 'image/png'
-      })
-      .then (result => console.log(result))
-      .catch(err => console.log(err));
+  onChange(e,{name, value}) {
+    window.steve = e
+    console.log(name)
+    console.log(value)
+      // const file = e.target.files[0];
+      // Storage.put('example.png', file, {
+      //     contentType: 'image/png'
+      // })
+      // .then (result => console.log(result))
+      // .catch(err => console.log(err));
   }
 
   handleChange(event, {name, value}) {
@@ -67,10 +74,17 @@ class CreateItemModal extends Component {
   handleSubmit(event) {
     if (this.state.cardName.length < 8) {
       this.setState({ error: 'Name should be longer than 7' });
-      this.setState({ nameChosen: true, error: '' });
     } else {
-      this.setState({ error: '' });
-
+      this.setState({ error: '', readyToUpload:true });
+      // var maker = {
+      //   "name": this.state.cardName,
+      //   "date": Date.now(),
+      //   "cardBackgroundColor":"rgb(51,55,56)",
+      //   "cardTitleColor":"rgb(38,213,311)",
+      //   "cardTitle":this.state.cardTitle,
+      //   "cardDescription":this.state.cardDescription
+      // }
+      // this.setState({ maker: maker });
       // STORAGE.PUT LOGIC
     }
   }
@@ -107,8 +121,22 @@ class CreateItemModal extends Component {
   handleClose = () => this.setState({ modalOpen: false })
 
 
-
   render () {
+
+    const imageUploader = <Form>
+                              <Form.Input
+                                  name='cardLogo' label='Card Logo' placeholder='Upload Card Logo...'
+                                  type="file" accept='image/png'
+                                  onChange={this.onChange}
+                              />
+
+                              <Form.Input
+                                  name='cardImage' label='Card Background Image' placeholder='Upload Card Image...'
+                                  type="file" accept='image/png'
+                                  onChange={this.onChange}
+                              />
+                          </Form>
+
     return (
         <Modal trigger={<Button onClick={this.handleOpen}>+ Add Card</Button>} closeIcon={true} open={this.state.modalOpen} onClose={this.handleClose}>
           <Modal.Header>Add a Card</Modal.Header>
@@ -123,8 +151,10 @@ class CreateItemModal extends Component {
                 <Form.Input name='cardTitle' label='Card Title' placeholder='Enter Card Title...' onChange={this.handleChange}  value={this.state.cardTitle} />
               </Form.Group>
               <Form.TextArea name='cardDescription' label='Card Description' placeholder='Add a Description of the Card...' onChange={this.handleChange}  value={this.state.cardDescription} />
-              <Form.Button type='submit'>Submit</Form.Button>
+              <Form.Button type='submit'>Next</Form.Button>
             </Form>
+            {this.state.readyToUpload ? imageUploader : null}
+
           </Modal.Content>
         </Modal>
       );
