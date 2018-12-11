@@ -155,26 +155,26 @@ class CreateItemModal extends Component {
       console.log('checking card_names')
       console.log(cardNamer)
       Storage.list('card_names/'+cardNamer)
-      .then(res => {
-        if (res.length > 0) {
-          console.log(res)
-          var nameTaken = false
-          res.forEach(function(d) {
-            if (d.key === 'card_names/'+cardNamer) {
-              var nameTaken = true
-            }
-          })
-          if (nameTaken) { this.setState({ error: 'name already taken'}) }
-          else {this.setState({ error: '', readyToUpload:true })}
-        } else {
-          console.log(res)
-          this.setState({ error: '', readyToUpload:true });
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        // this.setState({ error: err});
-      })
+        .then(res => {
+          if (res.length > 0) {
+            console.log(res)
+            var nameTaken = false
+            res.forEach(function(d) {
+              if (d.key === 'card_names/'+cardNamer) {
+                var nameTaken = true
+              }
+            })
+            if (nameTaken) { this.setState({ error: 'name already taken'}) }
+            else {this.setState({ error: '', readyToUpload:true })}
+          } else {
+            console.log(res)
+            this.setState({ error: '', readyToUpload:true });
+          }
+        })
+        .catch(err => {
+          console.log(err)
+          // this.setState({ error: err});
+        })
     }
   }
 
