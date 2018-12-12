@@ -111,9 +111,9 @@ class CreateItemModal extends Component {
       }
 
 
-      // Storage.put(fileName, files[i])
-      //   .then(res => console.log(res))
-      //   .catch(err => console.log(err))
+      Storage.put(fileName, files[i])
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
     }
 
   }
