@@ -4,15 +4,33 @@ import CreateItemModal from './createItem'
 import { Storage } from 'aws-amplify';
 
 class ItemDashboard extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      card_names:null
+    }
+  }
 
 
 lister = () => {
-  Storage.list('card_names/meso')
-  .then(res => {
-    console.log(res)
-    window.reso = res
-  })
+  Storage.list('Markesian')
+  .then(res => console.log(res))
   .catch(err => console.log(err))
+  // Storage.list('card_names')
+  // .then(res => {
+  //   console.log(res)
+  //   window.reso = res
+  //   var card_names_split = []
+  //   for (var i = 0 ; i < res.length+1 ; i++) {
+  //     var splitname = d.key.split('/')[1]
+  //     // card_names_split.push(splitname)
+  //
+  //   }
+  // })
+  // .catch(err => console.log(err))
+
+
+
   // Storage.put('card_names/yeso','')
   //   .then(res => {
   //     console.log(res)

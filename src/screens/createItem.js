@@ -109,11 +109,19 @@ class CreateItemModal extends Component {
         console.log('errs but still works')
         console.log(err)
       }
+      if (fileName.substring(fileName.length-4,fileName.length) === 'html') {
+        console.log('puttin an html')
+        Storage.put(fileName, files[i], {
+          contentType: 'text/html'
+        })
+          .then(res => console.log(res))
+          .catch(err => console.log(err))
+      } else {
+        Storage.put(fileName, files[i])
+          .then(res => console.log(res))
+          .catch(err => console.log(err))
+      }
 
-
-      Storage.put(fileName, files[i])
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
     }
 
   }
